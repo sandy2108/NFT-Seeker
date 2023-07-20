@@ -7,14 +7,12 @@ const product = () => {
 
   //This one for Specific NFTs collection contract address
   const [collection, setCollection] = useState("");
-   
-  
+
   const [NFTs, setNFTs] = useState([]);
 
-  
   const [fetchCollection, setFetchCollection] = useState(false);
 
-  const [result,setResult] = useState(true);
+  const [result, setResult] = useState(true);
 
   const [selectedNetwork, setSelectedNetwork] = useState("eth-mainnet");
 
@@ -22,8 +20,7 @@ const product = () => {
   const fetchNFTs = async () => {
     let nfts;
     console.log("Fetching NFTs");
-    const baseURL =
-      "https://eth-mainnet.alchemyapi.io/v2/DQTqb0VvexXjpFaO_WyGpPnsm13qCse6/getNFTs/";
+    const baseURL = `https://${selectedNetwork}.g.alchemy.com/v2/DQTqb0VvexXjpFaO_WyGpPnsm13qCse6/getNFTs/`;
 
     if (!collection.length) {
       var requestOptions = {
@@ -49,8 +46,8 @@ const product = () => {
       var requestOptions = {
         method: "GET",
       };
-      const baseURL =
-        "https://eth-mainnet.alchemyapi.io/v2/DQTqb0VvexXjpFaO_WyGpPnsm13qCse6/getNFTsForCollection/";
+      const baseURL = `https://${selectedNetwork}.g.alchemy.com/v2/DQTqb0VvexXjpFaO_WyGpPnsm13qCse6/getNFTsForCollection/`;
+
       const fetchURL = `${baseURL}?contractAddress=${collection}&withMetadata=${"true"}`;
       const nfts = await fetch(fetchURL, requestOptions).then((data) =>
         data.json()
@@ -108,15 +105,19 @@ const product = () => {
                   />{" "}
                   For Collections{" "}
                 </label>
-                <select value={selectedNetwork} onChange={setSelectedNetwork} className="">
-          <option value="eth-mainnet">Ethereum Mainnet</option>
-          <option value="eth-sepolia">Ethereum Sepolia</option>
-          <option value="eth-goerli">Ethereum Goerli</option>
-          <option value="polygon-mainnet">Polygon Mainnet</option>
-          <option value="polygon-mumbai">Polygon Mumbai</option>
-          <option value="arb-mainnet">Arbitrum</option>
-          <option value="opt-mainnet">Optimism</option>
-        </select>
+                <select
+                  value={selectedNetwork}
+                  onChange={(e) => setSelectedNetwork(e.target.value)}
+                  className=""
+                >
+                  <option value="eth-mainnet">Ethereum Mainnet</option>
+                  <option value="eth-sepolia">Ethereum Sepolia</option>
+                  <option value="eth-goerli">Ethereum Goerli</option>
+                  <option value="polygon-mainnet">Polygon Mainnet</option>
+                  <option value="polygon-mumbai">Polygon Mumbai</option>
+                  <option value="arb-mainnet">Arbitrum</option>
+                  <option value="opt-mainnet">Optimism</option>
+                </select>
               </div>
               <button
                 onClick={() => {
@@ -125,7 +126,7 @@ const product = () => {
                   } else {
                     fetchNFTs();
                   }
-                  setResult(!result)
+                  setResult(!result);
                 }}
                 className="border w-full my-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white"
               >
@@ -137,15 +138,26 @@ const product = () => {
         </div>
         <div className="my-10">
           {NFTs.length > 0 ? (
-             <div className="my-10">
-                <h1 className="text-2xl md:text-4xl font-bold text-gradient flex items-center justify-center">Your Collections</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-10 ">
-                  {NFTs.map((nft, index) => <NftCard key={index} nft={nft} />) }
-                </div>
-             </div>
-            ) : (result ? null :<p className="flex items-center justify-center text-2xl font-bold text-black..">Oops !.. NO NFTS FOUND</p>)}
+            <div className="my-10">
+              <h1 className="text-2xl md:text-4xl font-bold text-gradient flex items-center justify-center">
+                Your Collections
+              </h1>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-10 ">
+                {NFTs.map((nft, index) => (
+                  <NftCard
+                    key={index}
+                    nft={nft}
+                    selectedNetwork={selectedNetwork}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : result ? undefined : (
+            <p className="flex items-center justify-center text-2xl font-bold text-black..">
+              Oops !.. NO NFTS FOUND
+            </p>
+          )}
         </div>
-      
       </div>
     </div>
   );

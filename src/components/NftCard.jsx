@@ -1,26 +1,39 @@
 import Link from "next/link";
 import { useState } from "react";
-import {TbExternalLink} from "react-icons/tb";
+import { TbExternalLink } from "react-icons/tb";
 
-
-const NftCard = ({ nft }) => {
+const NftCard = ({ nft, selectedNetwork }) => {
   const [isImageLoaded, setImageLoaded] = useState(true);
-  const isGatewayValid = nft.media[0].gateway.startsWith("https://nft-cdn.alchemy.com/eth-mainnet/");
-  const placeholderImage = "https://via.placeholder.com/400";
+  const isGatewayValid = nft.media[0].gateway.startsWith("https://nft-cdn.alchemy.com/") || nft.media[0].gateway.startsWith("https://ipfs.io/");
 
-  const [isLoading, setLoading] = useState(true);
+  const placeholderImage = "https://via.placeholder.com/400";
 
   const handleImageError = () => {
     setImageLoaded(false);
   };
 
-  const handleImageLoad = () => {
-    setLoading(false);
-  };
+  const [isLoading, setLoading] = useState(true);
 
-  function helperfunction(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+  const getDomain = (selectedNetwork) => {
+    switch (selectedNetwork) {
+      case "eth-mainnet":
+        return ["etherscan.io", "Etherscan"];
+      case "eth-sepolia":
+        return ["sepolia.etherscan.io", "Ethereum Sepolia"];
+      case "eth-goerli":
+        return ["goerli.etherscan.io", "Ethereum Goerli"];
+      case "polygon-mainnet":
+        return ["polygonscan.com", "Polygonscan"];
+      case "polygon-mumbai":
+        return ["mumbai.polygonscan.com", "Polygon Mumbai"];
+      case "arb-mainnet":
+        return ["arbiscan.io", "Arbiscan"];
+      case "opt-mainnet":
+        return ["optimistic.etherscan.io", "Optimism"];
+      default:
+        return ["etherscan.io", "Etherscan"]; // Default to Ethereum Mainnet domain
+    }
+  };
 
   return (
     <div>
@@ -32,32 +45,52 @@ const NftCard = ({ nft }) => {
               alt="/"
               layout="fill"
               objectFit="cover"
-              className={helperfunction('group-hover:opacity-75 duration-700 ease-in-out', isLoading ? 'grayscale blur-xl scale-110' : 'grayscale-0 blur-0 scale-100')}
+              className="group-hover:opacity-75 duration-700 ease-in-out"
               onError={handleImageError}
-              onLoad={handleImageLoad}
+            
             />
           ) : (
             <video
               src={isGatewayValid ? nft.media[0].gateway : placeholderImage}
               alt="/"
               layout="fill"
+              objectFit="cover"
               autoPlay
               loop
               muted
-              className={helperfunction('group-hover:opacity-75 duration-700 ease-in-out', isLoading ? 'grayscale blur-xl scale-110' : 'grayscale-0 blur-0 scale-100')}
+              className="group-hover:opacity-75 duration-700 ease-in-out"
               onError={handleImageError}
-              onLoad={handleImageLoad}
+            
             />
           )}
         </div>
         <div className="flex flex-col ">
           <div className="flex justify-between">
             <p className="m-2 font-bold text-md text-black">{nft.title}</p>
-            <p className="m-2 font-bold text-sm text-black">ID:{nft.id.tokenId.substr(nft.id.tokenId.length - 4)}</p>
+            <p className="m-2 font-bold text-sm text-black">
+              ID:{nft.id.tokenId.substr(nft.id.tokenId.length - 4)}
+            </p>
           </div>
           <div className="flex justify-between py-[4px]">
-            <p className="text-md text-red-400 mx-2 font-bold"> <span className="text-white font-md">{nft.contractMetadata.symbol}</span></p>
-            <Link href={`https://etherscan.io/token/${nft.contract.address}`} className="text-md text-white mx-2 flex  font-bold cursor-pointer">Etherscan <TbExternalLink className="my-1 ml-1"/></Link>
+            {nft?.contractMetadata?.symbol ? (
+              <p className="text-md text-red-400 mx-2 font-bold">
+                <span className="text-white font-md">
+                  {nft.contractMetadata.symbol}
+                </span>
+              </p>
+            ) : (
+              <p className="text-md text-white mx-2 font-bold">N/A</p>
+            )}
+            <Link
+              href={`https://${getDomain(selectedNetwork)[0]}/token/${
+                nft.contract.address
+              }`}
+              className="text-md text-white mx-2 flex  font-bold cursor-pointer"
+            >
+              {" "}
+              {getDomain(selectedNetwork)[1]}{" "}
+              <TbExternalLink className="my-1 ml-1" />
+            </Link>
           </div>
         </div>
       </div>
@@ -66,5 +99,3 @@ const NftCard = ({ nft }) => {
 };
 
 export default NftCard;
-
-

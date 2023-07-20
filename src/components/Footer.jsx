@@ -25,6 +25,9 @@ export default function Footer() {
               <li>Polygon</li>
               <li>Arbitrum</li>
               <li>Optimism</li>
+              <li>Goerli Testnet</li>
+              <li>Sepolia Testnet</li>
+              <li>Polygon Mumbai</li>
             </ul>
           </div>
           <div className="flex flex-col">
