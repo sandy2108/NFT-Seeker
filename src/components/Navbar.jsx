@@ -10,7 +10,7 @@ const Navbar = () => {
   const [toggle , setToggle] = useState(false);
 
   return (
-    <nav className='navbarbg '>
+    <nav className='navbarbg shadow-lg shadow-blue-100'>
     <div className='max-w-[1340px] mx-auto flex justify-between items-center py-6 px-4 '>
         <Link href="/">
             <h1 className='text-2xl text-black md:text-4xl font-bold'>NFT SEEKER</h1>        
