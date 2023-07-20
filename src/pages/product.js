@@ -3,18 +3,18 @@ import React, { useState } from "react";
 
 const product = () => {
   //set usestate for holiding user address
-  const [address, setAddress] = useState("");
+  const[address, setAddress] = useState("");
 
   //This one for Specific NFTs collection contract address
-  const [collection, setCollection] = useState("");
+  const[collection, setCollection] = useState("");
 
-  const [NFTs, setNFTs] = useState([]);
+  const[NFTs, setNFTs] = useState([]);
 
-  const [fetchCollection, setFetchCollection] = useState(false);
+  const[fetchCollection, setFetchCollection] = useState(false);
 
-  const [result, setResult] = useState(true);
+  const[result, setResult] = useState(true);
 
-  const [selectedNetwork, setSelectedNetwork] = useState("eth-mainnet");
+  const[selectedNetwork, setSelectedNetwork] = useState("eth-mainnet");
 
   //Fetch NFTs from Alchmey
   const fetchNFTs = async () => {

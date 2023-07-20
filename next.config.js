@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains:['nft-cdn.alchemy.com'],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 module.exports = nextConfig

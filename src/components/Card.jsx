@@ -30,6 +30,7 @@ const Card = () => {
             <div>
               <Image
                 src={feature.image}
+                alt="feature icons"
                 height={60}
                 width={60}
                 className="rounded-2xl p-1"
