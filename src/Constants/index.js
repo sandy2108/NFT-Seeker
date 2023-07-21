@@ -16,7 +16,7 @@ export const navLinks = [
       title: "Product",
     },
     {
-      id: "https://twitter.com/Sanjaysk2108",
+      id: "https://twitter.com/Sanjay33160173",
       title: "Twitter",
     },
   ];
