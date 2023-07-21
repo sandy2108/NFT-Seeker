@@ -65,8 +65,8 @@ const product = () => {
       <div className="max-w-[1240px] mx-auto p-4">
         <div className="w-full grid grid-cols-1 ">
           <div className="flex flex-col justify-center">
-            <div className="max-w-[400px] w-full mx-auto p-4 shadow-lg shadow-black">
-              <h2 className="text-4xl font-bold text-center py-6 ">
+            <div className="max-w-[400px] w-full mx-auto p-4 rounded-2xl shadow-lg shadow-black">
+              <h2 className="text-2xl md:text-3xl font-bold text-center py-6 ">
                 Fetch your collections
               </h2>
               <div className="flex flex-col py-2 ">

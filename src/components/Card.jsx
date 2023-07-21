@@ -20,7 +20,7 @@ const Card = () => {
       {featuresLinks.map((feature, index) => (
         <div
           key={index}
-          className={`w-[350px] h-[300px] my-5 rounded-2xl p-4  ${
+          className={`w-[330px] h-[300px] my-5 rounded-2xl p-4  ${
             hoveredIndex === index ? "border-2 border-blue-400" : ""
           }`}
           onMouseEnter={() => handleMouseEnter(index)}
@@ -46,8 +46,8 @@ const Card = () => {
             <div className="min-h-[80px]">{feature.description}</div>
             {hoveredIndex === index && (
               <div>
-                <Link href="/" className="my-2 flex">
-                  <h1 className="my-2 text-black font-extrabold">
+                <Link href="/product" className="my-2 flex">
+                  <h1 className="my-2 text-gradient font-extrabold">
                     Get Started.{" "}
                   </h1>
                   <BsArrowRight className="mt-3 ml-2" />

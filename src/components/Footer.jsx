@@ -32,7 +32,7 @@ export default function Footer() {
           </div>
           <div className="flex flex-col">
             <h3 className="text-lg font-semibold text-white">Contact Us</h3>
-            <p className="mt-4">Email: info@nftseeker.com</p>
+            <p className="mt-4">Email: sandy2108@protonmail.com</p>
            
           </div>
         </div>
